@@ -1,2 +1,3 @@
-/lol
+/admin.php
+/admin.php
 /admin.php

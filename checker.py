@@ -1,4 +1,5 @@
 import requests
+from requests.exceptions import ConnectTimeout
 def start():
     print("choose an option: \n (0) = Add path \n (1) = check website")
     inp = input()
@@ -10,8 +11,13 @@ def start():
         url = input("input target URL: ")
         with open('urls.txt','r', encoding='UTF-8') as f:
             for line in f:
-                x = requests.get(url+line, timeout=5)
-                print(f'{url+line} = {x.status_code}')
+                s = url + line
+                s.replace(" ", "")
+                try:
+                    x = requests.get(s, timeout=5)
+                    print(f'{s} ↳{x.status_code}')
+                except ConnectTimeout:
+                    print(f'{s} ↳Timeout')
     else:
         start()
 
