@@ -9,6 +9,11 @@ def start():
             f.write(f"{url}\n")
     elif inp == "1":
         url = input("input target URL: ")
+        try:
+          x = requests.get(url, timeout=5)
+          print(f'{url}\n ↳{x.status_code}')
+        except ConnectTimeout:
+           print(f'{url}\n ↳Timeout')
         with open('urls.txt','r', encoding='UTF-8') as f:
             for line in f:
                 s = url + line
